@@ -265,7 +265,41 @@ namespace Lightstone.SentenceParserAppTests
 
         }
     }
+    [TestFixture]
+    public class SentenceValidatorIsolatedTests
+    {
+        ISentenceValidator sentenceValidator;
+        const int SENTENCE_MAX_LENGTH_LIMIT = 25;
 
+        [SetUp]
+        public void Setup()
+        {
+            sentenceValidator = new SentenceValidator(SENTENCE_MAX_LENGTH_LIMIT);
+        }
+        [Test]
+        [TestCase(null)] // null
+        [TestCase("")] // zero
+        [TestCase("word word word word word word word word word word word")] //over 25
+        public void SentenceValidator_LengthCheck_FailsIfExceeds25SpacesAndCharactersCombined(string? words)
+        {
+            Assert.Throws<ArgumentException>(() => sentenceValidator.isValid(words));
+        }
+        /// <summary>
+        /// A line will only consist of letters and space characters. 
+        /// There will be exactly one space character between each pair of consecutive words.
+        /// Spaces will not appear at the start or end of a line.
+        /// </summary>
+        /// <param name="words"></param>
+        [Test]
+        [TestCase("word1 word2 word3!")] // special characters
+        [TestCase("word1       word3")] // too many spaces
+        [TestCase(" word1 word2")] // space at the start of the sentence
+        public void SentenceValidator_DataCheck_FailsIfDoesNoAdhereToSpec(string? words)
+        {
+            Assert.Throws<ArgumentException>(() => sentenceValidator.isValid(words));
+        }
+
+    }
 
     [TestFixture]
     public class WordReverserTests

@@ -2,7 +2,7 @@ Problem
 
 Instructions
 Solve the problem below using c#. The solution must be a console application and all code need to be in 
-one .cv file.
+one .cs file.
 
 Notes
 Your code will be assessed on the following:
@@ -26,7 +26,7 @@ For each test case, output one line containing "Case 'x':" followed by the list 
 Limits 
 1 <= L <=25
 
-
+-----------------------------------------------------------------------------------------
 Sample
 
 	input
@@ -39,3 +39,11 @@ Sample
 		Case 1: test a is this
 		Case 2: foobar
 		Case 3: base your all
+
+-----------------------------------------------------------------------------------------
+
+Systems Requirements: dotnet core8
+
+Test Command: dotnet test --logger "console;verbosity=detailed"
+
+Run Comman:   dotnet run --project .\Lightstone.SentenceParserApp.csproj
